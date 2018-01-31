@@ -19,15 +19,18 @@ public class PlatContent
 
     public bool isFreeze;
     public bool isShow { get { return _isShow; } }
+    public BasePlat basePlat { get { return _basePlat; } }
+    public List<BtnContent> btnList;
 
+    BasePlat _basePlat;
     bool _isShow;
-    List<BtnContent> btnList;
     IPlatAnima platAnima;
 
-    public PlatContent(int id, IPlatAnima platAnima)
+    public PlatContent(int id,BasePlat basePlat, IPlatAnima platAnima)
     {
         this.id = id;
         this.platAnima = platAnima;
+        this._basePlat = basePlat;
     }
 
     public void InitialBtnList()

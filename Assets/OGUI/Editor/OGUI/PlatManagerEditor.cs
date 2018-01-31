@@ -7,42 +7,67 @@ using UnityEditor;
 [CustomEditor(typeof(PlatManager))]
 public class PlatManagerEditor : Editor {
     bool isFoldContent;
+    List<bool> isPlatShow;
     PlatManager compt;
     private void OnEnable()
     {
         isFoldContent = true;
         compt = (PlatManager)target;
+        isPlatShow = new List<bool>();
     }
 
     public override void OnInspectorGUI()
     {
+        while (isPlatShow.Count < compt.platContentList.Count)
+        {
+            isPlatShow.Add(false);
+        }
         //base.OnInspectorGUI();
         isFoldContent = EditorGUILayout.Foldout(isFoldContent, "PlatContent List");
         if (isFoldContent)
         {
             //顯示PlatContent清單
-            foreach (PlatContent content in compt.platContentList)
+            var content = compt.platContentList;
+            for (int i=0;i<compt.platContentList.Count;i++)
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.Label(content.id.ToString(), GUILayout.Width(20));
+                GUILayout.Label(content[i].id+":", GUILayout.Width(20));
 
-                content.isFreeze = GUILayout.Toggle(content.isFreeze, "Freeze", GUILayout.Width(100));
+                content[i].isFreeze = GUILayout.Toggle(content[i].isFreeze, "Freeze", GUILayout.Width(100));
 
-                bool isShow = GUILayout.Toggle(content.isShow, "Show",GUILayout.Width(100));
+                bool isShow = GUILayout.Toggle(content[i].isShow, "Show",GUILayout.Width(100));
 
-                if (isShow != content.isShow)
+                if (isShow != content[i].isShow)
                 {
                     if (isShow)
                     {
-                        content.Show();
+                        content[i].Show();
                     }
                     else
                     {
-                        content.Hide();
+                        content[i].Hide();
                     }
                 }
-
                 GUILayout.EndHorizontal();
+                isPlatShow[i] = EditorGUILayout.Foldout(isPlatShow[i], "Button List");
+                if (isPlatShow[i])
+                {
+                    BtnContent btn;
+                    if (content[i].btnList != null)
+                    {
+                        for (int j = 0; j < content[i].btnList.Count; j++)
+                        {
+                            btn = content[i].btnList[j];
+                            BtnStateEnum state = (BtnStateEnum)EditorGUILayout.EnumPopup(btn.GetState());
+                            if (state != btn.GetState())
+                            {
+                                btn.SetState(state);
+                            }
+
+                        }
+                    }
+                }
+                
             }
         }
         

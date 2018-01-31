@@ -36,7 +36,7 @@ public class PlatManager : MonoBehaviour {
         {
             platContentList.Add(platContent);
             platContent.isFreeze = false;
-            platContent.HardHide() ;
+            platContent.HardHide();
             platContent.isFreeze = true;
             return true;
         }

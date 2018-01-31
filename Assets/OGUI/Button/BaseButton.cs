@@ -11,11 +11,11 @@ public class BaseButton :MonoBehaviour, IButton
     public BaseButton up, left, right, down;
     public BasePlat plat;
     protected BtnContent content = new BtnContent();
-
     /*content在執行Inialize時就必需加入上下左右BtnContent
      * 因此content必需在intialize之前便初始化完畢
      * 否則在加入上下左右時，其它BaseButton的BtnContent還未初始化
      */
+
     public void Initialize()
     {
         
@@ -29,6 +29,8 @@ public class BaseButton :MonoBehaviour, IButton
             if (plat != null)
             {
                 this.plat = plat;
+                plat.GetPlatContent().AddButton(this.content);
+
             }else
             {
                 Debug.LogError("button miss plat in "+ transform.parent.gameObject.name + "/" + gameObject.name);

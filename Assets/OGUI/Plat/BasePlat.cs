@@ -19,8 +19,14 @@ public abstract class BasePlat :MonoBehaviour, IPlat {
 
     protected abstract void SelfInitalize();
 
+    protected abstract void InitialPlatContent();
+
     public PlatContent GetPlatContent()
     {
+        InitialPlatContent();
+        /*
+         * 按鈕先初始化時便會提取content,因此得在視窗初始化之前先初始化content
+         */
         return _content;
     }
     

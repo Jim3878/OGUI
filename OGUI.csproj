@@ -96,6 +96,7 @@
     <Compile Include="Assets\OGUI\Button\BtnContent.cs" />
     <Compile Include="Assets\OGUI\Button\BtnDirectionEnum.cs" />
     <Compile Include="Assets\OGUI\Button\BtnStateEnum.cs" />
+    <Compile Include="Assets\OGUI\Button\Button\BtnTest.cs" />
     <Compile Include="Assets\OGUI\Button\IButton.cs" />
     <Compile Include="Assets\OGUI\OInitilize.cs" />
     <Compile Include="Assets\OGUI\Plat\BasePlat.cs" />
