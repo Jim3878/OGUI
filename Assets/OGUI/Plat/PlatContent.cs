@@ -6,7 +6,7 @@ using System;
 using DG.Tweening;
 
 /// <summary>
-/// 記錄與控管視窗資
+/// 記錄與控管視窗資訊
 /// </summary>
 [System.Serializable]
 public class PlatContent
@@ -26,7 +26,7 @@ public class PlatContent
     bool _isShow;
     IPlatAnima platAnima;
 
-    public PlatContent(int id,BasePlat basePlat, IPlatAnima platAnima)
+    public PlatContent(int id, BasePlat basePlat, IPlatAnima platAnima)
     {
         this.id = id;
         this.platAnima = platAnima;
@@ -47,6 +47,7 @@ public class PlatContent
         BtnContent target = btnList.Find((x) => x.ID == btn.ID);
         if (target != null)
         {
+            Debug.LogError(string.Format("按鈕ID重覆 /n{0}/n{1}", btn.baseButton.transform.GetPath(), target.baseButton.transform.GetPath()));
             return false;
         }
         else

@@ -13,7 +13,7 @@ public class ZoomPlat : BasePlat
 
     protected override void SelfInitalize()
     {
-        Debug.Log("Initialize");
+        
         InitialPlatContent();
         PlatManager.Instance().AddPlatContent(_content);
     }

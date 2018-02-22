@@ -24,7 +24,7 @@ public class OInitilize : MonoBehaviour {
     void InitialPlat()
     {
         var childs = transform.GetComponentsInChildren<BasePlat>(true);
-        Debug.Log(childs.Length);
+        
 
         foreach (BasePlat plat in childs)
         {
