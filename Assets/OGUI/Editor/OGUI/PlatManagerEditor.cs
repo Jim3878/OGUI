@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
+using System;
+using System.Reflection;
 
 [CustomEditor(typeof(PlatManager))]
 public class PlatManagerEditor : Editor
@@ -15,8 +17,22 @@ public class PlatManagerEditor : Editor
     Color btnLabelTextColor = Color.green;
     int btnLabelTextSize = 15;
 
+    void Test()
+    {
+        MemberInfo info = typeof(BaseButtonEditor);
+        var ce = (CustomEditor[])Attribute.GetCustomAttributes(info, typeof(CustomEditor));
+        Debug.Log(ce.Length);
+        foreach (var n in ce)
+        {
+            Debug.Log(n);
+            Debug.Log(n.TypeId);
+            Debug.Log("///////////");
+        }
+    }
+
     private void OnEnable()
     {
+        Test();
         isFoldContent = true;
         compt = (PlatManager)target;
         isPlatShow = new List<bool>();
@@ -42,7 +58,7 @@ public class PlatManagerEditor : Editor
 
     void DrawGizmosSetting()
     {
-        
+
         btnLabelOffset = EditorGUILayout.Vector3Field("UI Offset", btnLabelOffset);
         btnLabelTextColor = EditorGUILayout.ColorField("UI Coloer", btnLabelTextColor);
         btnLabelTextSize = EditorGUILayout.IntField("UI text size", btnLabelTextSize);
@@ -51,7 +67,7 @@ public class PlatManagerEditor : Editor
 
     void DrawContentTitle(PlatContent content)
     {
-        
+
         GUILayout.BeginHorizontal();
         content.isFreeze = !GUILayout.Toggle(!content.isFreeze, "", GUILayout.Width(20));
         GUILayout.Label(content.basePlat.gameObject.name, GUILayout.Width(110));
@@ -152,20 +168,9 @@ public class PlatManagerEditor : Editor
 
     private void OnSceneGUI()
     {
-        DrawSecenCtrl();
         DrawBtnID();
-        //Handles.Label()
     }
 
-    void DrawSecenCtrl()
-    {
-        //GUI.backgroundColor = Color.black;
-        GUILayout.Window(0, new Rect(10, 10, 150, 50), (x)=>DrawGizmosSetting(),"opption");
-        //GUILayout.BeginArea(new Rect(10, 10, 150, 50));
-        //DrawGizmosSetting();
-        
-        //GUILayout.EndArea();
-    }
 
     void DrawBtnID()
     {
