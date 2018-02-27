@@ -14,7 +14,6 @@ public class BtnContent
     public bool isFreeze = false;
     public int ID;
 
-
     protected BaseButton _baseButton;
     protected BtnStateEnum _currentState;
 

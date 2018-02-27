@@ -15,6 +15,7 @@ public class OInitilize : MonoBehaviour {
     void InitialButton()
     {
         var childs = transform.GetComponentsInChildren<BaseButton>(true);
+        Debug.Log(childs.Length);
         foreach (BaseButton btn in childs)
         {
             btn.Initialize();

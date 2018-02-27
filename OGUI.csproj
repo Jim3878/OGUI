@@ -305,7 +305,6 @@
     <Compile Include="Assets\OGUI\Button\BtnStateEnum.cs" />
     <Compile Include="Assets\OGUI\Button\Button\BtnTest.cs" />
     <Compile Include="Assets\OGUI\Button\Button\ButtonAnima\BtnColorAnima.cs" />
-    <Compile Include="Assets\OGUI\Button\Button\IUIComponent.cs" />
     <Compile Include="Assets\OGUI\Button\IButton.cs" />
     <Compile Include="Assets\OGUI\OInitilize.cs" />
     <Compile Include="Assets\OGUI\Plat\BaseBtnFunction.cs" />
@@ -321,6 +320,11 @@
     <Compile Include="Assets\OGUI\PlatManager.cs" />
     <Compile Include="Assets\OGUI\PlatManagerCmd\IPlatManagerCmd.cs" />
     <Compile Include="Assets\OGUI\Test\InstPlatManagerTest.cs" />
+    <Compile Include="Assets\Taka\Core\BtnHandler.cs" />
+    <Compile Include="Assets\Taka\Core\IUIComponent.cs" />
+    <Compile Include="Assets\Taka\Core\PlatHandler.cs" />
+    <Compile Include="Assets\Taka\Core\TakeAwake.cs" />
+    <Compile Include="Assets\Taka\Core\TakeManager.cs" />
     <Compile Include="Assets\Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
