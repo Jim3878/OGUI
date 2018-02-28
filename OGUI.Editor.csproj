@@ -305,6 +305,8 @@
   <ItemGroup>
     <Compile Include="Assets\OGUI\Editor\OGUI\BaseButtonEditor.cs" />
     <Compile Include="Assets\OGUI\Editor\OGUI\PlatManagerEditor.cs" />
+    <Compile Include="Assets\Taka\Editor\PlatHandlerInspector.cs" />
+    <Compile Include="Assets\Taka\Editor\TakeManagerInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />

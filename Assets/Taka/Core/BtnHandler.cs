@@ -6,10 +6,12 @@ using UnityEngine.Events;
 public class BtnHandler : MonoBehaviour {
     public delegate void StateEvent(BtnStateEnum state);
     public delegate void BtnEvent();
+    [System.Serializable]
     public class UE_StateEvent : UnityEvent<BtnStateEnum> { };
 
     public int ID;
     public bool isFreeze = false;
+    
     
     public BtnHandler up, left, right, down;
 
@@ -26,13 +28,21 @@ public class BtnHandler : MonoBehaviour {
     private UnityEvent _onUnfreeze;
     [SerializeField]
     private UE_StateEvent _onChangeState;
-
+    private PlatHandler _plat;
+    public PlatHandler plat
+    {
+        get
+        {
+            return _plat;
+        }
+    }
 
 
     protected BtnStateEnum _currentState;
 
-    public void Initialize()
+    public void Initialize(PlatHandler handler)
     {
+        this._plat = handler;
         onChangeState += _onChangeState.Invoke;
         onInitialize += _onInitialize.Invoke;
         onFreeze += onFreeze;
@@ -66,7 +76,7 @@ public class BtnHandler : MonoBehaviour {
     {
         return _currentState;
     }
-
+    
     public BtnHandler GetNeighborBtn(BtnDirectionEnum dir)
     {
         switch (dir)
