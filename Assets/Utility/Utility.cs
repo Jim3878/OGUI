@@ -26,11 +26,11 @@ public static class StaticUtility
     public static string GetPath(this Transform go)
     {
         string path = go.gameObject.name;
-        Transform parent = go.parent;
-        while (parent.parent != null)
+        Transform current = go;
+        while (current.parent != null)
         {
-            path = parent.gameObject.name + "/" + path;
-            parent = go.parent;
+            path = current.parent.gameObject.name + "/" + path;
+            current = go.parent;
         }
         return path;
     }

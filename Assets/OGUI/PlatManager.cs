@@ -64,7 +64,7 @@ public class PlatManager : MonoBehaviour {
         return content;
     }
 
-    public void SetCommand(BasePlatManagerCmd cmd)
+    public void SetCommand(BasePlatHandlerCmd cmd)
     {
         cmd.Excute(this);
     }

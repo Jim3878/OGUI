@@ -40,7 +40,7 @@ public class BtnHandler : MonoBehaviour {
 
     protected BtnStateEnum _currentState;
 
-    public void Initialize(PlatHandler handler)
+    public virtual void Initialize(PlatHandler handler)
     {
         this._plat = handler;
         onChangeState += _onChangeState.Invoke;

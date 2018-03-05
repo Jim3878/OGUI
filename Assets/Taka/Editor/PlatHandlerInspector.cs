@@ -6,7 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(PlatHandler))]
 public class PlatHandlerInspector : Editor
 {
-
+    
     PlatHandler compt;
 
     private void OnEnable()
@@ -17,13 +17,10 @@ public class PlatHandlerInspector : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        Rect up = GUILayoutUtility.GetRect(0, 1, GUILayout.ExpandWidth(true));
-        EditorGUILayout.LabelField("55");
-        EditorGUILayout.LabelField("55");
-        EditorGUILayout.LabelField("55");
+        //Rect up = GUILayoutUtility.GetRect(0, 1, GUILayout.ExpandWidth(true));
 
-        Rect down = GUILayoutUtility.GetRect(0, 1, GUILayout.ExpandWidth(true));
-        DropAreaGUI(up, down);
+        //Rect down = GUILayoutUtility.GetRect(0, 1, GUILayout.ExpandWidth(true));
+        //DropAreaGUI(up, down);
     }
 
     void DropAreaGUI(Rect up, Rect down)

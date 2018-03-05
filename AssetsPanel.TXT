@@ -1,0 +1,81 @@
+   at PlatHandler.HardHide() in D:\GitUnity\OGUI\Assets\Taka\Core\PlatHandler.cs:line 212
+   at TakeManager.AddPlat(.PlatHandler plat) in D:\GitUnity\OGUI\Assets\Taka\Core\TakeManager.cs:line 41
+   at PlatHandler.Initialize() in D:\GitUnity\OGUI\Assets\Taka\Core\PlatHandler.cs:line 72
+   at TestPanel.Initialize() in D:\GitUnity\OGUI\Assets\Taka\Test\TestPanel.cs:line 18
+   at TakeAwake.Awake() in D:\GitUnity\OGUI\Assets\Taka\Core\TakeAwake.cs:line 12
+HardHide() 
+
+   at PlatHandler.Show() in D:\GitUnity\OGUI\Assets\Taka\Core\PlatHandler.cs:line 174
+   at TakeManagerInspector.DrawContentTitle(.PlatHandler content) in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 64
+   at TakeManagerInspector.DrawContent(Int32 index) in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 84
+   at TakeManagerInspector.DrawPlatContentList() in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 146
+   at TakeManagerInspector.OnInspectorGUI() in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 38
+   at UnityEditor.InspectorWindow.DrawEditor(UnityEditor.Editor[] editors, Int32 editorIndex, Boolean rebuildOptimizedGUIBlock, Boolean ByRef showImportedObjectBarNext, Rect ByRef importedObjectBarRect) in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 1253
+   at UnityEditor.InspectorWindow.DrawEditors(UnityEditor.Editor[] editors) in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 1030
+   at UnityEditor.InspectorWindow.OnGUI() in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 361
+   at System.Reflection.MonoMethod.InternalInvoke(System.Object , System.Object[] , System.Exception ByRef )
+   at System.Reflection.MonoMethod.Invoke(System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:line 222
+   at System.Reflection.MethodBase.Invoke(System.Object obj, System.Object[] parameters) in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:line 115
+   at UnityEditor.HostView.Invoke(System.String methodName, System.Object obj) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 295
+   at UnityEditor.HostView.Invoke(System.String methodName) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 288
+   at UnityEditor.HostView.InvokeOnGUI(Rect onGUIPosition) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 255
+   at UnityEditor.DockArea.OldOnGUI() in C:\buildslave\unity\build\Editor\Mono\GUI\DockArea.cs:line 396
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.DoOnGUI(UnityEngine.Event evt) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 182
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.HandleIMGUIEvent(UnityEngine.Event e) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 338
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.HandleEvent(UnityEngine.Experimental.UIElements.EventBase evt) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 322
+   at UnityEngine.Experimental.UIElements.EventDispatcher.DispatchEvent(UnityEngine.Experimental.UIElements.EventBase evt, IPanel panel) in C:\buildslave\unity\build\Runtime\UIElements\Managed\EventDispatcher.cs:line 250
+   at UnityEngine.Experimental.UIElements.UIElementsUtility.DoDispatch(UnityEngine.Experimental.UIElements.BaseVisualElementPanel panel) in C:\buildslave\unity\build\Runtime\UIElements\Managed\UIElementsUtility.cs:line 251
+   at UnityEngine.Experimental.UIElements.UIElementsUtility.ProcessEvent(Int32 instanceID, IntPtr nativeEventPtr) in C:\buildslave\unity\build\Runtime\UIElements\Managed\UIElementsUtility.cs:line 78
+   at UnityEngine.GUIUtility.ProcessEvent(Int32 instanceID, IntPtr nativeEventPtr) in C:\buildslave\unity\build\Runtime\IMGUI\Managed\GUIUtility.cs:line 175
+Show() 
+
+   at PlatHandler.TriggerBtn(Int32 id) in D:\GitUnity\OGUI\Assets\Taka\Core\PlatHandler.cs:line 219
+   at TakeManagerInspector.DrawPlatButton(.PlatHandler handler, Int32 index) in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 136
+   at TakeManagerInspector.DrawContentButtonList(.PlatHandler handler) in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 99
+   at TakeManagerInspector.DrawContent(Int32 index) in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 89
+   at TakeManagerInspector.DrawPlatContentList() in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 146
+   at TakeManagerInspector.OnInspectorGUI() in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 38
+   at UnityEditor.InspectorWindow.DrawEditor(UnityEditor.Editor[] editors, Int32 editorIndex, Boolean rebuildOptimizedGUIBlock, Boolean ByRef showImportedObjectBarNext, Rect ByRef importedObjectBarRect) in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 1253
+   at UnityEditor.InspectorWindow.DrawEditors(UnityEditor.Editor[] editors) in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 1030
+   at UnityEditor.InspectorWindow.OnGUI() in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 361
+   at System.Reflection.MonoMethod.InternalInvoke(System.Object , System.Object[] , System.Exception ByRef )
+   at System.Reflection.MonoMethod.Invoke(System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:line 222
+   at System.Reflection.MethodBase.Invoke(System.Object obj, System.Object[] parameters) in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:line 115
+   at UnityEditor.HostView.Invoke(System.String methodName, System.Object obj) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 295
+   at UnityEditor.HostView.Invoke(System.String methodName) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 288
+   at UnityEditor.HostView.InvokeOnGUI(Rect onGUIPosition) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 255
+   at UnityEditor.DockArea.OldOnGUI() in C:\buildslave\unity\build\Editor\Mono\GUI\DockArea.cs:line 396
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.DoOnGUI(UnityEngine.Event evt) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 182
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.HandleIMGUIEvent(UnityEngine.Event e) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 338
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.HandleEvent(UnityEngine.Experimental.UIElements.EventBase evt) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 322
+   at UnityEngine.Experimental.UIElements.EventDispatcher.DispatchEvent(UnityEngine.Experimental.UIElements.EventBase evt, IPanel panel) in C:\buildslave\unity\build\Runtime\UIElements\Managed\EventDispatcher.cs:line 250
+   at UnityEngine.Experimental.UIElements.UIElementsUtility.DoDispatch(UnityEngine.Experimental.UIElements.BaseVisualElementPanel panel) in C:\buildslave\unity\build\Runtime\UIElements\Managed\UIElementsUtility.cs:line 251
+   at UnityEngine.Experimental.UIElements.UIElementsUtility.ProcessEvent(Int32 instanceID, IntPtr nativeEventPtr) in C:\buildslave\unity\build\Runtime\UIElements\Managed\UIElementsUtility.cs:line 78
+   at UnityEngine.GUIUtility.ProcessEvent(Int32 instanceID, IntPtr nativeEventPtr) in C:\buildslave\unity\build\Runtime\IMGUI\Managed\GUIUtility.cs:line 175
+TriggerBtn id = -1
+
+   at PlatHandler.TriggerBtn(Int32 id) in D:\GitUnity\OGUI\Assets\Taka\Core\PlatHandler.cs:line 219
+   at TakeManagerInspector.DrawPlatButton(.PlatHandler handler, Int32 index) in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 136
+   at TakeManagerInspector.DrawContentButtonList(.PlatHandler handler) in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 99
+   at TakeManagerInspector.DrawContent(Int32 index) in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 89
+   at TakeManagerInspector.DrawPlatContentList() in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 146
+   at TakeManagerInspector.OnInspectorGUI() in D:\GitUnity\OGUI\Assets\Taka\Editor\TakeManagerInspector.cs:line 38
+   at UnityEditor.InspectorWindow.DrawEditor(UnityEditor.Editor[] editors, Int32 editorIndex, Boolean rebuildOptimizedGUIBlock, Boolean ByRef showImportedObjectBarNext, Rect ByRef importedObjectBarRect) in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 1253
+   at UnityEditor.InspectorWindow.DrawEditors(UnityEditor.Editor[] editors) in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 1030
+   at UnityEditor.InspectorWindow.OnGUI() in C:\buildslave\unity\build\Editor\Mono\Inspector\InspectorWindow.cs:line 361
+   at System.Reflection.MonoMethod.InternalInvoke(System.Object , System.Object[] , System.Exception ByRef )
+   at System.Reflection.MonoMethod.Invoke(System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:line 222
+   at System.Reflection.MethodBase.Invoke(System.Object obj, System.Object[] parameters) in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:line 115
+   at UnityEditor.HostView.Invoke(System.String methodName, System.Object obj) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 295
+   at UnityEditor.HostView.Invoke(System.String methodName) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 288
+   at UnityEditor.HostView.InvokeOnGUI(Rect onGUIPosition) in C:\buildslave\unity\build\Editor\Mono\HostView.cs:line 255
+   at UnityEditor.DockArea.OldOnGUI() in C:\buildslave\unity\build\Editor\Mono\GUI\DockArea.cs:line 396
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.DoOnGUI(UnityEngine.Event evt) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 182
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.HandleIMGUIEvent(UnityEngine.Event e) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 338
+   at UnityEngine.Experimental.UIElements.IMGUIContainer.HandleEvent(UnityEngine.Experimental.UIElements.EventBase evt) in C:\buildslave\unity\build\Runtime\UIElements\Managed\IMGUIContainer.cs:line 322
+   at UnityEngine.Experimental.UIElements.EventDispatcher.DispatchEvent(UnityEngine.Experimental.UIElements.EventBase evt, IPanel panel) in C:\buildslave\unity\build\Runtime\UIElements\Managed\EventDispatcher.cs:line 250
+   at UnityEngine.Experimental.UIElements.UIElementsUtility.DoDispatch(UnityEngine.Experimental.UIElements.BaseVisualElementPanel panel) in C:\buildslave\unity\build\Runtime\UIElements\Managed\UIElementsUtility.cs:line 251
+   at UnityEngine.Experimental.UIElements.UIElementsUtility.ProcessEvent(Int32 instanceID, IntPtr nativeEventPtr) in C:\buildslave\unity\build\Runtime\UIElements\Managed\UIElementsUtility.cs:line 78
+   at UnityEngine.GUIUtility.ProcessEvent(Int32 instanceID, IntPtr nativeEventPtr) in C:\buildslave\unity\build\Runtime\IMGUI\Managed\GUIUtility.cs:line 175
+TriggerBtn id = -1
+

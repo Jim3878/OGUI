@@ -92,9 +92,9 @@ public class TakeManagerInspector : Editor{
 
     void DrawContentButtonList(PlatHandler handler)
     {
-        if (handler.btnHandlerList != null && handler.btnHandlerList.Count > 0)
+        if (handler.btnList != null && handler.btnList.Count > 0)
         {
-            for (int i = 0; i < handler.btnHandlerList.Count; i++)
+            for (int i = 0; i < handler.btnList.Count; i++)
             {
                 DrawPlatButton(handler, i);
             }
@@ -107,11 +107,11 @@ public class TakeManagerInspector : Editor{
     {
         GUILayout.BeginHorizontal();
         GUILayout.Space(120);
-        if (GUILayout.Button("Freeze /Unfreeze All", GUILayout.Width(150)) && handler.btnHandlerList.Count > 0)
+        if (GUILayout.Button("Freeze /Unfreeze All", GUILayout.Width(150)) && handler.btnList.Count > 0)
         {
-            for (int i = 0; i < handler.btnHandlerList.Count; i++)
+            for (int i = 0; i < handler.btnList.Count; i++)
             {
-                handler.btnHandlerList[i].isFreeze = !handler.btnHandlerList[i].isFreeze;
+                handler.btnList[i].isFreeze = !handler.btnList[i].isFreeze;
             }
         }
         GUILayout.EndHorizontal();
@@ -119,7 +119,7 @@ public class TakeManagerInspector : Editor{
 
     void DrawPlatButton(PlatHandler handler, int index)
     {
-        var btnContent = handler.btnHandlerList[index];
+        var btnContent = handler.btnList[index];
         EditorGUILayout.BeginHorizontal();
         GUILayout.Space(25);
         GUILayout.Label(btnContent.ID + ":", GUILayout.Width(50));
@@ -133,7 +133,7 @@ public class TakeManagerInspector : Editor{
         }
         if (GUILayout.Button("Test", GUILayout.Width(50)))
         {
-            handler.onBtnTrigger(btnContent.ID);
+            handler.TriggerBtn(btnContent.ID);
         }
 
         EditorGUILayout.EndHorizontal();
@@ -160,11 +160,11 @@ public class TakeManagerInspector : Editor{
         for (int i = 0; i < compt.platList.Count; i++)
         {
             var platContent = compt.platList[i];
-            if (!platContent.isFreeze && platContent.btnHandlerList != null)
+            if (!platContent.isFreeze && platContent.btnList != null)
             {
-                for (int j = 0; j < platContent.btnHandlerList.Count; j++)
+                for (int j = 0; j < platContent.btnList.Count; j++)
                 {
-                    var btn = platContent.btnHandlerList[j];
+                    var btn = platContent.btnList[j];
 
                     GUIStyle style = new GUIStyle();
                     style.normal.textColor = Color.green;

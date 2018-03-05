@@ -3,38 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
-
-
+using System.IO;
 
 public class PlatHandler : MonoBehaviour
 {
+    #region TYPE
     [Serializable]
     public class UE_BtnTrigger : UnityEvent<int> { };
     public delegate void BtnTrigger(int id);
     public delegate void PlatEvent();
+    #endregion
 
-    public int id;
-
-    //初始化用兩者相同、platComponentList是針對Monobehavior而設
-    /// <summary>
-    /// Component需實作IPlatComponent才會初始化
-    /// </summary>
-    public List<MonoBehaviour> platComponentList = new List<MonoBehaviour>();
+    public int ID;
     protected List<IPlatComponent> _platComponentList = new List<IPlatComponent>();
-    public List<BtnHandler> btnHandlerList = new List<BtnHandler>();
+    public List<BtnHandler> btnList = new List<BtnHandler>();
 
-    public PlatEvent onInitialize;
-    public PlatEvent show;
-    public PlatEvent hardShow;
-    public PlatEvent hide;
-    public PlatEvent hardHide;
-    public PlatEvent onFreeze;
-    public PlatEvent onUnfreeze;
-    public BtnTrigger onBtnTrigger;
-    [SerializeField]
-    private UnityEvent _onInitilize = new UnityEvent();
-    [SerializeField]
-    private UE_BtnTrigger _onBtnTrigger = new UE_BtnTrigger();
+    public event PlatEvent onInitialize;
+    public event PlatEvent show;
+    public event PlatEvent hardShow;
+    public event PlatEvent hide;
+    public event PlatEvent hardHide;
+    public event PlatEvent onFreeze;
+    public event PlatEvent onUnfreeze;
+    public event BtnTrigger onBtnTrigger;
+
+    string _Log = "";
 
     private bool _isFreeze;
     [HideInInspector]
@@ -69,43 +62,42 @@ public class PlatHandler : MonoBehaviour
 
     bool _isShow;
     public bool isShow { get { return _isShow; } }
+    List<BtnHandler> registedBtnList = new List<BtnHandler>();
 
-    List<BtnHandler> btnList;
-
-    public void Initialize()
+    public virtual void Initialize()
     {
-        btnList = new List<BtnHandler>();
-        onBtnTrigger += _onBtnTrigger.Invoke;
-        onInitialize += _onInitilize.Invoke;
-        
         InitilizeBtnHandler();
         InitilzeComponent();
+        
+        if (onInitialize != null)
+        {
+            onInitialize();
+        }
+        _Log += "\nInitialize()\n" + LogHelper.CallStack() + "\n\n";
+
         TakeManager.Instance().AddPlat(this);
-        
-        
-        onInitialize();
     }
 
     void InitilzeComponent()
     {
-        foreach (MonoBehaviour compt in platComponentList)
-        {
-            try
-            {
-                if (compt is IPlatComponent)
-                {
-                    (compt as IPlatComponent).Initialize(this);
-                }
-                else
-                {
-                    throw new Exception("元件未實作IPlatComponent : " + compt.transform.GetPath());
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-            }
-        }
+        //foreach (MonoBehaviour compt in platComponentList)
+        //{
+        //    try
+        //    {
+        //        if (compt is IPlatComponent)
+        //        {
+        //            (compt as IPlatComponent).Initialize(this);
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("元件未實作IPlatComponent : " + compt.transform.GetPath());
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Debug.Log(e);
+        //    }
+        //}
         foreach (IPlatComponent compt in _platComponentList)
         {
             compt.Initialize(this);
@@ -116,7 +108,7 @@ public class PlatHandler : MonoBehaviour
     {
         try
         {
-            foreach (BtnHandler handler in btnHandlerList)
+            foreach (BtnHandler handler in btnList)
             {
                 handler.Initialize(this);
             }
@@ -130,22 +122,24 @@ public class PlatHandler : MonoBehaviour
     public void AddButton(BtnHandler btn)
     {
 
-        if (btnList.Find((x) => x.ID == btn.ID) != null)
+        if (registedBtnList.Find((x) => x.ID == btn.ID) != null)
         {
-            btnList.RemoveAll((x) => x.ID == btn.ID);
+            registedBtnList.RemoveAll((x) => x.ID == btn.ID);
         }
-        btnList.Add(btn);
+        registedBtnList.Add(btn);
+        _Log += "\nAddButton( btn.id = " + btn.ID + ")\n" + LogHelper.CallStack() + "\n\n";
     }
 
     public void RemoveButton(int id)
     {
-        BtnHandler target = btnList.Find((x) => x.ID == id);
+        BtnHandler target = registedBtnList.Find((x) => x.ID == id);
         try
         {
             if (target != null)
             {
-                btnList.Remove(target);
+                registedBtnList.Remove(target);
             }
+            _Log += "\nRemoveButton( id = " + ID + " )\n" + LogHelper.CallStack() + " \n\n";
         }
         catch (Exception e)
         {
@@ -157,13 +151,19 @@ public class PlatHandler : MonoBehaviour
     {
         try
         {
-            BtnHandler target = btnList.Find((x) => x.ID == id);
+            BtnHandler target = registedBtnList.Find((x) => x.ID == id);
+
             return target;
+
         }
         catch (Exception)
         {
             Debug.Log("按鈕遺失或未註冊 id = " + id);
             throw;
+        }
+        finally
+        {
+            _Log += "GetButton( id = " + ID + " )\n" + LogHelper.CallStack() + " \n\n";
         }
     }
 
@@ -177,6 +177,7 @@ public class PlatHandler : MonoBehaviour
                 if (show != null)
                 {
                     show();
+                    _Log += "\nShow() \n" + LogHelper.CallStack() + "\n\n";
                 }
             }
         }
@@ -188,6 +189,7 @@ public class PlatHandler : MonoBehaviour
         if (hardShow != null)
         {
             hardShow();
+            _Log += "\nHArdShow()\n" + LogHelper.CallStack() + " \n\n";
         }
     }
 
@@ -201,6 +203,7 @@ public class PlatHandler : MonoBehaviour
                 if (hide != null)
                 {
                     hide();
+                    _Log += "\nHide() \n" + LogHelper.CallStack() + "\n\n";
                 }
             }
         }
@@ -212,7 +215,33 @@ public class PlatHandler : MonoBehaviour
         if (hardHide != null)
         {
             hardHide();
+            _Log += "\nHardHide()\n" + LogHelper.CallStack() + "\n\n";
         }
     }
 
+    public void TriggerBtn(int id)
+    {
+        onBtnTrigger(id);
+        _Log += "\nTriggerBtn( id = " + id + ")\n" + LogHelper.CallStack() + "\n\n";
+    }
+
+    [ContextMenu("Trace Log")]
+    public void TraceLog()
+    {
+        string path = Application.persistentDataPath + "/" + transform.GetPath().Replace("/", "/") + ".TXT";
+        using (StreamWriter sw = new StreamWriter(path))   //小寫TXT     
+        {
+            // Add some text to the file.
+            sw.Write(_Log);
+            sw.Close();
+            Debug.Log("Log save to :" + path);
+        }
+
+    }
+
+    [ContextMenu("Trace")]
+    public void ttt()
+    {
+        Debug.Log(transform.GetPath());
+    }
 }

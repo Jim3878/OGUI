@@ -32,9 +32,9 @@ public class TakeManager : MonoBehaviour
     {
         try
         {
-            if (platList.Find((p) => p.id == plat.id) != null)
+            if (platList.Find((p) => p.ID == plat.ID) != null)
             {
-                throw new Exception("Plat ID 重覆註冊 。ID = " + plat.id);
+                throw new Exception("Plat ID 重覆註冊 。ID = " + plat.ID);
             }
             platList.Add(plat);
             plat.isFreeze = false;
@@ -44,6 +44,7 @@ public class TakeManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e.Message);
+            Debug.Log(transform.GetPath());
             throw;
         }
     }
@@ -70,7 +71,7 @@ public class TakeManager : MonoBehaviour
     {
         try
         {
-            PlatHandler content = platList.Find((plat) => plat.id == id);
+            PlatHandler content = platList.Find((plat) => plat.ID == id);
             return content;
         }
         catch (Exception)
