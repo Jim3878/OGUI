@@ -9,6 +9,7 @@ public class TestPanel : PlatHandler
     Transform scrollContent;
     [SerializeField]
     GameObject btnPrefabs;
+    int currentID = 1;
 
     public override void Initialize()
     {
@@ -19,17 +20,17 @@ public class TestPanel : PlatHandler
 
         for(int i = 0; i < 10; i++)
         {
-            addBtn.AddBtn(GameObject.Instantiate(btnPrefabs, scrollContent).GetComponent<BtnHandler>());
+            BtnHandler btn = GameObject.Instantiate(btnPrefabs, scrollContent).GetComponent<BtnHandler>();
+            this.SetCommand(new PlatHandlerCmdImpl.AddButton(btn, currentID));
+            currentID++;
         }
         onBtnTrigger += (id) =>
         {
             if (id == -1)
             {
                 BtnHandler btn = GameObject.Instantiate(btnPrefabs, scrollContent).GetComponent<BtnHandler>();
-                //Debug.Log("01 "+ btn.transform.localScale);
-                addBtn.AddBtn(btn);
-                //Debug.Log("02" + btnPrefabs.transform.localScale);
-                //Debug.Log("03" + btn.transform.localScale);
+                this.SetCommand(new PlatHandlerCmdImpl.AddButton(btn, currentID));
+                currentID++;
             }
         };
     }

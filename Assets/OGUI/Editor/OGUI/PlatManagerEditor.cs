@@ -12,10 +12,16 @@ public class PlatManagerEditor : Editor
     bool isFoldContent;
     List<bool> isPlatShow;
     PlatManager compt;
+    
 
     Vector3 btnLabelOffset = new Vector2(-1, 0);
     Color btnLabelTextColor = Color.green;
     int btnLabelTextSize = 15;
+    
+    void OnBtnAdd(int id)
+    {
+        Repaint();
+    }
 
     void Test()
     {
@@ -38,6 +44,7 @@ public class PlatManagerEditor : Editor
         isPlatShow = new List<bool>();
     }
 
+    
     public override void OnInspectorGUI()
     {
         while (isPlatShow.Count < compt.platContentList.Count)

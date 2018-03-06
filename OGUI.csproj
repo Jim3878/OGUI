@@ -318,7 +318,6 @@
     <Compile Include="Assets\OGUI\Plat\PlatContent.cs" />
     <Compile Include="Assets\OGUI\Plat\PlatContentUtility.cs" />
     <Compile Include="Assets\OGUI\PlatManager.cs" />
-    <Compile Include="Assets\OGUI\PlatManagerCmd\BasePlatHandlerCmd.cs" />
     <Compile Include="Assets\OGUI\Test\InstPlatManagerTest.cs" />
     <Compile Include="Assets\Taka\Core\BtnHandler.cs" />
     <Compile Include="Assets\Taka\Core\IBtnComponent.cs" />
@@ -331,6 +330,8 @@
     <Compile Include="Assets\Taka\LogHelper\LogHelper.cs" />
     <Compile Include="Assets\Taka\PlatComponent\DynamicAddButton.cs" />
     <Compile Include="Assets\Taka\PlatComponent\ZoomPlatShow.cs" />
+    <Compile Include="Assets\Taka\PlatManagerCmd\BasePlatHandlerCmd.cs" />
+    <Compile Include="Assets\Taka\PlatManagerCmd\PlatHandlerCmdImpl.cs" />
     <Compile Include="Assets\Taka\Test\TestBackBtn.cs" />
     <Compile Include="Assets\Taka\Test\TestPanel.cs" />
     <Compile Include="Assets\Utility\Utility.cs" />

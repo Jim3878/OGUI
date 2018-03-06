@@ -26,17 +26,17 @@ public class TakeManager : MonoBehaviour
 
     #endregion
 
-    public List<PlatHandler> platList;
+    public Dictionary<int, PlatHandler> platList;
 
     public void AddPlat(PlatHandler plat)
     {
         try
         {
-            if (platList.Find((p) => p.ID == plat.ID) != null)
+            if (platList.ContainsKey(plat.ID))
             {
                 throw new Exception("Plat ID 重覆註冊 。ID = " + plat.ID);
             }
-            platList.Add(plat);
+            platList.Add(plat.ID, plat);
             plat.isFreeze = false;
             plat.HardHide();
             plat.isFreeze = true;
@@ -54,16 +54,17 @@ public class TakeManager : MonoBehaviour
         try
         {
             InitPlatList();
-            PlatHandler content = GetPlatContent(id);
-            if (content == null)
+
+            if (!platList.ContainsKey(id))
             {
                 throw new Exception();
             }
-            platList.Remove(content);
+            platList.Remove(id);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-
+            Debug.Log("id = " + id);
+            throw;
         }
     }
 
@@ -71,7 +72,7 @@ public class TakeManager : MonoBehaviour
     {
         try
         {
-            PlatHandler content = platList.Find((plat) => plat.ID == id);
+            PlatHandler content = platList[id];
             return content;
         }
         catch (Exception)
@@ -85,7 +86,7 @@ public class TakeManager : MonoBehaviour
     {
         if (platList == null)
         {
-            platList = new List<PlatHandler>();
+            platList = new Dictionary<int, PlatHandler>();
         }
     }
 }

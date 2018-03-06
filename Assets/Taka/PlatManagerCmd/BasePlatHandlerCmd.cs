@@ -27,11 +27,11 @@ public abstract class BasePlatHandlerCmd  {
         return this;
     }
 
-    public void Excute(PlatManager manager)
+    public void Excute(PlatHandler handler)
     {
         onStart();
-        SelfExcute(manager);
+        SelfExcute(handler);
     }
 
-    protected abstract void SelfExcute(PlatManager manager);
+    protected abstract void SelfExcute(PlatHandler handler);
 }

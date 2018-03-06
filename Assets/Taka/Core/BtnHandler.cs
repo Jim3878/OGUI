@@ -47,6 +47,7 @@ public class BtnHandler : MonoBehaviour {
         onInitialize += _onInitialize.Invoke;
         onFreeze += onFreeze;
         onUnfreeze += onUnfreeze;
+        plat.AddButton(this);
         InitilzeComponent();
         onInitialize();
     }
