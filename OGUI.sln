@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGUI", "OGUI.csproj", "{98D55905-2686-236A-D9DD-EC9AACBCE15E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGUI.Editor", "OGUI.Editor.csproj", "{E687EA66-28F6-5A9A-29D3-F67F11B02B07}"

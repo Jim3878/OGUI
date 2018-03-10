@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestPanel : PlatHandler
 {
     DynamicAddBtn addBtn;
+    [SerializeField]
+    ScrollRect scroll;
     [SerializeField]
     Transform scrollContent;
     [SerializeField]
@@ -13,7 +16,8 @@ public class TestPanel : PlatHandler
 
     public override void Initialize()
     {
-        _platComponentList.Add(new ZoomPlatShow(0.5f, DG.Tweening.Ease.InSine, DG.Tweening.Ease.OutSine));
+        var zoomPlatShow = new ZoomPlatShow(0.5f, DG.Tweening.Ease.InSine, DG.Tweening.Ease.OutSine);
+        _platComponentList.Add(zoomPlatShow);
         addBtn = new DynamicAddBtn(scrollContent);
         _platComponentList.Add(addBtn);
         base.Initialize();
@@ -24,14 +28,24 @@ public class TestPanel : PlatHandler
             this.SetCommand(new PlatHandlerCmdImpl.AddButton(btn, currentID));
             currentID++;
         }
-        onBtnTrigger += (id) =>
+        onBtnTrigger += OnBtnTrigger;
+        onShow += RestScroll;
+        
+    }
+
+    void RestScroll()
+    {
+        Debug.Log("set");
+        scroll.content.localPosition = Vector2.zero;
+    }
+
+    void OnBtnTrigger(int id)
+    {
+        if (id == -1)
         {
-            if (id == -1)
-            {
-                BtnHandler btn = GameObject.Instantiate(btnPrefabs, scrollContent).GetComponent<BtnHandler>();
-                this.SetCommand(new PlatHandlerCmdImpl.AddButton(btn, currentID));
-                currentID++;
-            }
-        };
+            BtnHandler btn = GameObject.Instantiate(btnPrefabs, scrollContent).GetComponent<BtnHandler>();
+            this.SetCommand(new PlatHandlerCmdImpl.AddButton(btn, currentID));
+            currentID++;
+        }
     }
 }

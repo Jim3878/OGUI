@@ -8,10 +8,10 @@ public class TestBackBtn : BtnHandler {
     public override void Initialize(PlatHandler handler)
     {
         base.Initialize(handler);
-        handler.show += OnShow;
-        handler.hide += OnHide;
-        handler.hardShow += OnHardShow;
-        handler.hardHide += OnHardHide;
+        handler.onShow += OnShow;
+        handler.onHide += OnHide;
+        handler.onHardShow += OnHardShow;
+        handler.onHardHide += OnHardHide;
     }
 
     void OnShow()

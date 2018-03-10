@@ -23,10 +23,10 @@ public class PlatHandler : MonoBehaviour
     private List<BtnHandler> btnList = new List<BtnHandler>();
     public Dictionary<int, BtnHandler> registedBtnList = new Dictionary<int, BtnHandler>();
     public event PlatEvent onInitialize;
-    public event PlatEvent show;
-    public event PlatEvent hardShow;
-    public event PlatEvent hide;
-    public event PlatEvent hardHide;
+    public event PlatEvent onShow;
+    public event PlatEvent onHardShow;
+    public event PlatEvent onHide; 
+    public event PlatEvent onHardHide;
     public event PlatEvent onFreeze;
     public event PlatEvent onUnfreeze;
     public event AddBtn onBtnAdd;
@@ -52,6 +52,7 @@ public class PlatHandler : MonoBehaviour
                     if (onFreeze != null)
                     {
                         onFreeze();
+
                     }
                 }
                 else
@@ -61,6 +62,7 @@ public class PlatHandler : MonoBehaviour
                         onUnfreeze();
                     }
                 }
+                _log += string.Format("setFreeze to {0}\n{1}\n\n", value, LogHelper.CallStack());
             }
         }
     }
@@ -98,6 +100,7 @@ public class PlatHandler : MonoBehaviour
             foreach (BtnHandler handler in btnList)
             {
                 handler.Initialize(this);
+
             }
         }
         catch (Exception e)
@@ -163,9 +166,9 @@ public class PlatHandler : MonoBehaviour
             if (!_isShow)
             {
                 _isShow = true;
-                if (show != null)
+                if (onShow != null)
                 {
-                    show();
+                    onShow();
                     _log += "\nShow() \n" + LogHelper.CallStack() + "\n\n";
                 }
             }
@@ -175,9 +178,9 @@ public class PlatHandler : MonoBehaviour
     public void HardShow()
     {
         _isShow = true;
-        if (hardShow != null)
+        if (onHardShow != null)
         {
-            hardShow();
+            onHardShow();
             _log += "\nHArdShow()\n" + LogHelper.CallStack() + " \n\n";
         }
     }
@@ -189,9 +192,9 @@ public class PlatHandler : MonoBehaviour
             if (_isShow)
             {
                 _isShow = false;
-                if (hide != null)
+                if (onHide != null)
                 {
-                    hide();
+                    onHide();
                     _log += "\nHide() \n" + LogHelper.CallStack() + "\n\n";
                 }
             }
@@ -201,9 +204,9 @@ public class PlatHandler : MonoBehaviour
     public void HardHide()
     {
         _isShow = false;
-        if (hardHide != null)
+        if (onHardHide != null)
         {
-            hardHide();
+            onHardHide();
             _log += "\nHardHide()\n" + LogHelper.CallStack() + "\n\n";
         }
     }
