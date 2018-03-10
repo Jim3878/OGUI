@@ -35,7 +35,6 @@ public class TestPanel : PlatHandler
 
     void RestScroll()
     {
-        Debug.Log("set");
         scroll.content.localPosition = Vector2.zero;
     }
 

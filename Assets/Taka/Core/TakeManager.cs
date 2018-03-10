@@ -7,102 +7,67 @@ using DG.Tweening;
 
 public class TakeManager : MonoBehaviour
 {
-
-    #region Instance
-
-    static string path = "Take/TakeManager";
-
-    // Use this for initialization
-    static TakeManager instance;
-
-    public static TakeManager Instance()
-    {
-        if (instance == null)
-        {
-            instance = GameObject.Instantiate<GameObject>(Resources.Load<GameObject>(path)).GetComponent<TakeManager>();
-            //instance.InitPlatList();
-            DontDestroyOnLoad(instance.gameObject);
-        }
-        return instance;
-    }
-
-    #endregion
-
     public bool isDebug;
     public List<PlatHandler> platList = new List<PlatHandler>();
+
     [Header("for debug")]
     public GameObject platDebugItemPrefabs;
     public Transform ItemListContent;
     public Transform debugPanel;
     public Button debugBtn;
-
-    bool isManager;
+    
     List<PlatDebugItem> platDebutItemList = new List<PlatDebugItem>();
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        if (instance == null)
+        //Manger
+        InitialPlatList();
+        
+        if (isDebug)
         {
-            //Manger
-            isManager = true;
-            instance = this;
-            InitialPlatList();
-            DontDestroyOnLoad(this.gameObject);
+            debugPanel.gameObject.SetActive(false);
+            debugBtn.onClick.AddListener(this.OnDebugBtnClick);
+        }
+        else if (debugBtn != null)
+        {
+            debugBtn.gameObject.SetActive(false);
+        }
 
-            if (isDebug)
-            {
-                debugPanel.gameObject.SetActive(false);
-                debugBtn.onClick.AddListener(this.OnDebugBtnClick);
-            }
-            else if(debugBtn!=null)
-            {
-                debugBtn.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            //非Manager
-            isManager = false;
-            RegistPlatListToManager();
-            isDebug = false;
-        }
     }
 
     void InitialPlatList()
     {
-        foreach (PlatHandler handler in platList)
+        foreach (PlatHandler plat in platList)
         {
-            handler.Initialize();
-            handler.isFreeze = false;
-            handler.HardHide();
-            AddPlatItem(handler);
+            InitializePlatHandler(plat);
+            AddPlatItem(plat);
         }
     }
 
-    void RegistPlatListToManager()
-    {
-        foreach (PlatHandler handler in platList)
-        {
-            instance.RegistPlatHandler(handler);
-            instance.AddPlatItem(handler);
-        }
-    }
+    //void RegistPlatListToManager()
+    //{
+    //    foreach (PlatHandler handler in platList)
+    //    {
+    //        instance.RegistPlatHandler(handler);
+    //        instance.AddPlatItem(handler);
+    //    }
+    //}
 
-    void RemovePlatListFromManager()
-    {
-        foreach (PlatHandler handler in platList)
-        {
-            try
-            {
-                instance.RemovePlatHandler(handler.ID);
-                instance.RemovePlatItem(handler.ID);
-            }
-            catch (NullReferenceException)
-            {
-                Debug.LogError(transform.GetPath() + "\n我想幫我的platHandler從主要manager中移除時，發現有handler不見了，不過應該沒什麼關係所以我就把錯誤拋出吃掉了~");
-            }
-        }
-    }
+    //void RemovePlatListFromManager()
+    //{
+    //    foreach (PlatHandler handler in platList)
+    //    {
+    //        try
+    //        {
+    //            instance.RemovePlatHandler(handler.ID);
+    //            instance.RemovePlatItem(handler.ID);
+    //        }
+    //        catch (NullReferenceException)
+    //        {
+    //            Debug.LogError(transform.GetPath() + "\n我想幫我的platHandler從主要manager中移除時，發現有handler不見了，不過應該沒什麼關係所以我就把錯誤拋出吃掉了~");
+    //        }
+    //    }
+    //}
 
     public void RegistPlatHandler(PlatHandler plat)
     {
@@ -113,6 +78,11 @@ public class TakeManager : MonoBehaviour
         }
 
         platList.Add(plat);
+        InitializePlatHandler(plat);
+    }
+
+    void InitializePlatHandler(PlatHandler plat)
+    {
         plat.Initialize();
         plat.isFreeze = false;
         plat.HardHide();
@@ -156,15 +126,7 @@ public class TakeManager : MonoBehaviour
         platDebutItemList.Remove(platDebutItemList.Find((x) => x.handlerID == ID));
 
     }
-
-    private void OnDestroy()
-    {
-        if (!isManager)
-        {
-            RemovePlatListFromManager();
-        }
-    }
-
+    
     bool isOpen = false;
     void OnDebugBtnClick()
     {
