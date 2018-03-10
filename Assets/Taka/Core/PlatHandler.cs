@@ -81,8 +81,6 @@ public class PlatHandler : MonoBehaviour
             onInitialize();
         }
         _log += "\nInitialize()\n" + LogHelper.CallStack() + "\n\n";
-
-        TakeManager.Instance().AddPlat(this);
     }
 
     void InitilzeComponent()
@@ -175,6 +173,9 @@ public class PlatHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 無視isFreeze強制立即開啟
+    /// </summary>
     public void HardShow()
     {
         _isShow = true;
@@ -201,6 +202,9 @@ public class PlatHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 無視isFreeze強制立即關閉
+    /// </summary>
     public void HardHide()
     {
         _isShow = false;

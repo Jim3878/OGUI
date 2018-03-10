@@ -24,6 +24,20 @@ public class PlatManager : MonoBehaviour {
 
     #endregion
 
+    public bool isDebug;
+    public List<PlatHandler> platList;
+    public GameObject platItemPrefabs;
+    public Transform platListContent;
+
+    public void Awake()
+    {
+        instance = this;
+        foreach(PlatHandler plat in platList)
+        {
+            plat.Initialize();
+        }
+    }
+
     public List<PlatContent> platContentList;
     
     public bool AddPlatContent(PlatContent platContent)
@@ -72,6 +86,13 @@ public class PlatManager : MonoBehaviour {
         }
     }
     
-    
+    void AddPlatItem(PlatHandler platHandler)
+    {
+        if (isDebug)
+        {
+            var item = GameObject.Instantiate<GameObject>(platItemPrefabs, platListContent).GetComponent<PlatDebugItem>();
+            item.Initialize(platHandler);
+        }
+    }
 
 }

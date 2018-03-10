@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class TakeManager : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class TakeManager : MonoBehaviour
         if (instance == null)
         {
             instance = GameObject.Instantiate<GameObject>(Resources.Load<GameObject>(path)).GetComponent<TakeManager>();
-            instance.InitPlatList();
+            //instance.InitPlatList();
             DontDestroyOnLoad(instance.gameObject);
         }
         return instance;
@@ -26,53 +28,106 @@ public class TakeManager : MonoBehaviour
 
     #endregion
 
-    public Dictionary<int, PlatHandler> platList;
+    public bool isDebug;
+    public List<PlatHandler> platList = new List<PlatHandler>();
+    [Header("for debug")]
+    public GameObject platDebugItemPrefabs;
+    public Transform ItemListContent;
+    public Transform debugPanel;
+    public Button debugBtn;
 
-    public void AddPlat(PlatHandler plat)
+    bool isManager;
+    List<PlatDebugItem> platDebutItemList = new List<PlatDebugItem>();
+
+    private void Awake()
     {
-        try
+        if (instance == null)
         {
-            if (platList.ContainsKey(plat.ID))
+            //Manger
+            isManager = true;
+            instance = this;
+            InitialPlatList();
+            DontDestroyOnLoad(this.gameObject);
+
+            if (isDebug)
             {
-                throw new Exception("Plat ID 重覆註冊 。ID = " + plat.ID);
+                debugPanel.gameObject.SetActive(false);
+                debugBtn.onClick.AddListener(this.OnDebugBtnClick);
             }
-            platList.Add(plat.ID, plat);
-            plat.isFreeze = false;
-            plat.HardHide();
-            plat.isFreeze = true;
+            else if(debugBtn!=null)
+            {
+                debugBtn.gameObject.SetActive(false);
+            }
         }
-        catch (Exception e)
+        else
         {
-            Debug.Log(e.Message);
-            Debug.Log(transform.GetPath());
-            throw;
+            //非Manager
+            isManager = false;
+            RegistPlatListToManager();
+            isDebug = false;
         }
     }
 
-    public void RemovePlatContent(int id)
+    void InitialPlatList()
     {
-        try
+        foreach (PlatHandler handler in platList)
         {
-            InitPlatList();
+            handler.Initialize();
+            handler.isFreeze = false;
+            handler.HardHide();
+            AddPlatItem(handler);
+        }
+    }
 
-            if (!platList.ContainsKey(id))
-            {
-                throw new Exception();
-            }
-            platList.Remove(id);
-        }
-        catch (Exception)
+    void RegistPlatListToManager()
+    {
+        foreach (PlatHandler handler in platList)
         {
-            Debug.Log("id = " + id);
-            throw;
+            instance.RegistPlatHandler(handler);
+            instance.AddPlatItem(handler);
         }
+    }
+
+    void RemovePlatListFromManager()
+    {
+        foreach (PlatHandler handler in platList)
+        {
+            try
+            {
+                instance.RemovePlatHandler(handler.ID);
+                instance.RemovePlatItem(handler.ID);
+            }
+            catch (NullReferenceException)
+            {
+                Debug.LogError(transform.GetPath() + "\n我想幫我的platHandler從主要manager中移除時，發現有handler不見了，不過應該沒什麼關係所以我就把錯誤拋出吃掉了~");
+            }
+        }
+    }
+
+    public void RegistPlatHandler(PlatHandler plat)
+    {
+        if (platList.Find((x) => x.ID == plat.ID) != null)
+        {
+            RemovePlatHandler(plat.ID);
+            Debug.Log("有重覆的ID註冊是不允許的！不過既然上一個註冊的platHanlder不知道跑去哪了，那就把他註銷掉吧~" + plat.transform.GetPath());
+        }
+
+        platList.Add(plat);
+        plat.Initialize();
+        plat.isFreeze = false;
+        plat.HardHide();
+    }
+
+    public void RemovePlatHandler(int id)
+    {
+        platList.Remove(platList.Find((x) => x.ID == id));
     }
 
     public PlatHandler GetPlatContent(int id)
     {
         try
         {
-            PlatHandler content = platList[id];
+            PlatHandler content = platList.Find((x) => x.ID == id);
             return content;
         }
         catch (Exception)
@@ -82,11 +137,39 @@ public class TakeManager : MonoBehaviour
         }
     }
 
-    void InitPlatList()
+    void AddPlatItem(PlatHandler plat)
     {
-        if (platList == null)
+        if (platDebutItemList.Find((x) => x.handlerID == plat.ID) != null)
         {
-            platList = new Dictionary<int, PlatHandler>();
+            RemovePlatItem(plat.ID);
+            Debug.Log("剛剛有把他註銷嗎？算了，先把他從debug內移除再說。" + plat.transform.GetPath());
         }
+
+        var item = GameObject.Instantiate<GameObject>(platDebugItemPrefabs, ItemListContent).GetComponent<PlatDebugItem>();
+        item.Initialize(plat);
+        platDebutItemList.Add(item);
+
+    }
+
+    void RemovePlatItem(int ID)
+    {
+        platDebutItemList.Remove(platDebutItemList.Find((x) => x.handlerID == ID));
+
+    }
+
+    private void OnDestroy()
+    {
+        if (!isManager)
+        {
+            RemovePlatListFromManager();
+        }
+    }
+
+    bool isOpen = false;
+    void OnDebugBtnClick()
+    {
+        isOpen = !debugPanel.gameObject.activeSelf;
+        debugPanel.gameObject.SetActive(isOpen);
+
     }
 }

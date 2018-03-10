@@ -25,20 +25,25 @@ public class TakeManagerInspector : Editor
 
     public override void OnInspectorGUI()
     {
-        while (isPlatShow.Count < compt.platList.Count)
-        {
-            isPlatShow.Add(false);
-        }
+        base.OnInspectorGUI();
 
-        DrawGizmosSetting();
-        EditorGUILayout.Space();
+        //if (EditorApplication.isPlaying)
+        //{
+        //    while (isPlatShow.Count < compt.platList.Count)
+        //    {
+        //        isPlatShow.Add(false);
+        //    }
 
-        isFoldContent = EditorGUILayout.Foldout(isFoldContent, "PlatContent List");
-        if (isFoldContent)
-        {
-            //顯示PlatContent清單
-            DrawPlatContentList();
-        }
+        //    DrawGizmosSetting();
+        //    EditorGUILayout.Space();
+
+        //    isFoldContent = EditorGUILayout.Foldout(isFoldContent, "PlatContent List");
+        //    if (isFoldContent)
+        //    {
+        //        //顯示PlatContent清單
+        //        DrawPlatContentList();
+        //    }
+        //}
     }
 
     void DrawGizmosSetting()
@@ -78,8 +83,8 @@ public class TakeManagerInspector : Editor
     {
         foreach (var plat in compt.platList)
         {
-            plat.Value.onBtnAdd -= OnBtnAdd;
-            plat.Value.onBtnAdd += OnBtnAdd;
+            plat.onBtnAdd -= OnBtnAdd;
+            plat.onBtnAdd += OnBtnAdd;
         }
     }
 
@@ -166,9 +171,9 @@ public class TakeManagerInspector : Editor
 
     void DrawPlatContentList()
     {
-        foreach (var keyValuePair in compt.platList)
+        foreach (var plat in compt.platList)
         {
-            DrawContent(keyValuePair.Key);
+            DrawContent(plat.ID);
         }
 
     }
@@ -182,9 +187,9 @@ public class TakeManagerInspector : Editor
 
     void DrawBtnID()
     {
-        foreach(var pair in compt.platList)
+        foreach(var plat in compt.platList)
         {
-            var platHangler = compt.platList[pair.Key];
+            var platHangler = plat;
             if (!platHangler.isFreeze && platHangler.registedBtnList != null)
             {
                 foreach (var btnPair in platHangler.registedBtnList)

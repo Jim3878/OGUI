@@ -5,12 +5,12 @@ using UnityEngine;
 public class TakeAwake : MonoBehaviour {
     public List<PlatHandler> platHandlerList;
 	// Use this for initialization
-	void Awake () {
+	//void Awake () {
 
-        foreach (PlatHandler plat in platHandlerList)
-        {
-            plat.Initialize();
-        }
-	}
+ //       foreach (PlatHandler plat in platHandlerList)
+ //       {
+ //           plat.Initialize();
+ //       }
+	//}
 	
 }
