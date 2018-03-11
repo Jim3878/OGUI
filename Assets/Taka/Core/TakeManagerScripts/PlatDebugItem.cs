@@ -9,7 +9,7 @@ public class PlatDebugItem : MonoBehaviour
     public Text showHideBtnText;
     public Text platName;
     public Toggle enableToggle;
-   
+
 
     bool isShow;
     public int handlerID
@@ -57,7 +57,8 @@ public class PlatDebugItem : MonoBehaviour
 
     void OnFreezeChange(bool isOn)
     {
-        handler.isFreeze = !isOn;
+        if (handler.isFreeze == isOn)
+            handler.isFreeze = !isOn;
     }
 
     void LinkShowHideBtnText()
@@ -86,7 +87,7 @@ public class PlatDebugItem : MonoBehaviour
 
     void LinkToggle()
     {
-        
+
         enableToggle.isOn = !handler.isFreeze;
         handler.onFreeze += OnPlatHandlerFreezeTrig;
         handler.onUnfreeze += OnPlatHandlerFreezeTrig;

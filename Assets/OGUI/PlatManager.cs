@@ -34,7 +34,7 @@ public class PlatManager : MonoBehaviour {
         instance = this;
         foreach(PlatHandler plat in platList)
         {
-            plat.Initialize();
+            plat.Initialize(new TakeManager());
         }
     }
 

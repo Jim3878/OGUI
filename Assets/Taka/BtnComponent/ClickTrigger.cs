@@ -18,25 +18,31 @@ public class ClickTrigger : EventTrigger, IBtnComponent
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
-        btn.SetState(BtnStateEnum.PRESSED);
+        if (!btn.isFreeze && !plat.isFreeze)
+            btn.SetState(BtnStateEnum.PRESSED);
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
     {
         base.OnPointerEnter(eventData);
-        btn.SetState(BtnStateEnum.HIGHLIGHT);
+        if (!btn.isFreeze && !plat.isFreeze)
+            btn.SetState(BtnStateEnum.HIGHLIGHT);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
-        btn.SetState(BtnStateEnum.NORMAL);
+        if (!btn.isFreeze && !plat.isFreeze)
+            btn.SetState(BtnStateEnum.NORMAL);
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
-        plat.TriggerBtn(btn.ID);
-        btn.SetState(BtnStateEnum.NORMAL);
+        //if (!btn.isFreeze && !plat.isFreeze)
+        {
+            btn.SetState(BtnStateEnum.NORMAL);
+            plat.TriggerBtn(btn.ID);
+        }
     }
 }

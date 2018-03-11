@@ -25,6 +25,7 @@ public class TakeManager : MonoBehaviour
         
         if (isDebug)
         {
+            debugBtn.gameObject.SetActive(true);
             debugPanel.gameObject.SetActive(false);
             debugBtn.onClick.AddListener(this.OnDebugBtnClick);
         }
@@ -83,7 +84,7 @@ public class TakeManager : MonoBehaviour
 
     void InitializePlatHandler(PlatHandler plat)
     {
-        plat.Initialize();
+        plat.Initialize(this);
         plat.isFreeze = false;
         plat.HardHide();
     }
@@ -93,7 +94,7 @@ public class TakeManager : MonoBehaviour
         platList.Remove(platList.Find((x) => x.ID == id));
     }
 
-    public PlatHandler GetPlatContent(int id)
+    public PlatHandler GetPlatHandler(int id)
     {
         try
         {

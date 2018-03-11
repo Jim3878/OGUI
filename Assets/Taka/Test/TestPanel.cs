@@ -14,13 +14,13 @@ public class TestPanel : PlatHandler
     GameObject btnPrefabs;
     int currentID = 1;
 
-    public override void Initialize()
+    public override void Initialize(TakeManager manager)
     {
         var zoomPlatShow = new ZoomPlatShow(0.5f, DG.Tweening.Ease.InSine, DG.Tweening.Ease.OutSine);
         _platComponentList.Add(zoomPlatShow);
         addBtn = new DynamicAddBtn(scrollContent);
         _platComponentList.Add(addBtn);
-        base.Initialize();
+        base.Initialize(manager);
 
         for(int i = 0; i < 10; i++)
         {
@@ -28,7 +28,7 @@ public class TestPanel : PlatHandler
             this.SetCommand(new PlatHandlerCmdImpl.AddButton(btn, currentID));
             currentID++;
         }
-        onBtnTrigger += OnBtnTrigger;
+        onTriggerBtn += OnBtnTrigger;
         onShow += RestScroll;
         
     }
@@ -45,6 +45,27 @@ public class TestPanel : PlatHandler
             BtnHandler btn = GameObject.Instantiate(btnPrefabs, scrollContent).GetComponent<BtnHandler>();
             this.SetCommand(new PlatHandlerCmdImpl.AddButton(btn, currentID));
             currentID++;
+        }
+        if (id == 999)
+        {
+            var plat= manager.GetPlatHandler(999);
+            if(plat is CheckPanel)
+            {
+                var checkPlat = plat as CheckPanel;
+                checkPlat.Show((x) =>
+                {
+                    if (x)
+                    {
+                        Debug.Log(true);
+                        checkPlat.Hide();
+                    }
+                    else
+                    {
+                        Debug.Log(false);
+                        checkPlat.Hide();
+                    }
+                });
+            }
         }
     }
 }

@@ -14,7 +14,31 @@ public class BtnHandler : MonoBehaviour
     public class UE_StateEvent : UnityEvent<BtnStateEnum> { };
     #endregion
     public int ID;
-    public bool isFreeze = false;
+    bool _isFreeze = false;
+    public bool isFreeze
+    {
+        get
+        {
+            return _isFreeze;
+        }
+        set
+        {
+            if (value != _isFreeze)
+            {
+                isFreeze = value;
+                _log += string.Format("set Freeze to {1} \n{0}\n\n", LogHelper.CallStack(), _isFreeze);
+                if (isFreeze && onFreeze != null)
+                {
+                    onFreeze();
+                }
+                else if (onUnfreeze != null)
+                {
+                    onUnfreeze();
+                }
+            }
+        }
+    }
+
     protected List<IBtnComponent> btnComponentList = new List<IBtnComponent>();
 
     //public BtnHandler up, left, right, down;
@@ -24,7 +48,6 @@ public class BtnHandler : MonoBehaviour
     public BtnEvent onUnfreeze;
 
     protected PlatHandler _plat;
-
     public PlatHandler plat
     {
         get
@@ -54,18 +77,18 @@ public class BtnHandler : MonoBehaviour
         }
     }
 
-    public bool SetState(BtnStateEnum state)
+    public void SetState(BtnStateEnum state)
     {
-        if (_currentState != state && !isFreeze)
+        if (!plat.isFreeze && !isFreeze && _currentState != state)
         {
+            //Debug.Log(state);
             _currentState = state;
             if (onChangeState != null)
             {
                 onChangeState(_currentState);
             }
+            _log += string.Format("SetState to {1} \n{0}\n\n", LogHelper.CallStack(), state);
         }
-        _log += string.Format("SetState to {1} \n{0}\n\n", LogHelper.CallStack(), state);
-        return !isFreeze;
     }
 
     public BtnStateEnum GetState()
@@ -90,21 +113,4 @@ public class BtnHandler : MonoBehaviour
         _log = "";
     }
 
-    //public BtnHandler GetNeighborBtn(BtnDirectionEnum dir)
-    //{
-    //    switch (dir)
-    //    {
-    //        case BtnDirectionEnum.UP:
-    //            return up;
-    //        case BtnDirectionEnum.LEFT:
-    //            return left;
-    //        case BtnDirectionEnum.RIGHT:
-    //            return right;
-    //        case BtnDirectionEnum.DOWN:
-    //            return down;
-    //        default:
-    //            return null;
-
-    //    }
-    //}
 }

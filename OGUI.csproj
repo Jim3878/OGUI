@@ -335,6 +335,7 @@
     <Compile Include="Assets\Taka\PlatComponent\ZoomPlatShow.cs" />
     <Compile Include="Assets\Taka\PlatManagerCmd\BasePlatHandlerCmd.cs" />
     <Compile Include="Assets\Taka\PlatManagerCmd\PlatHandlerCmdImpl.cs" />
+    <Compile Include="Assets\Taka\Test\CheckPanel.cs" />
     <Compile Include="Assets\Taka\Test\TestBackBtn.cs" />
     <Compile Include="Assets\Taka\Test\TestBtn.cs" />
     <Compile Include="Assets\Taka\Test\TestPanel.cs" />

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Utility
 {
-    public static Texture2D MakeTexture(Color color ,int width,int height)
+    public static Texture2D MakeTexture(Color color, int width, int height)
     {
         var pix = new Color[width * height];
 
@@ -27,10 +27,12 @@ public static class StaticUtility
     {
         string path = go.gameObject.name;
         Transform current = go;
-        while (current.parent != null)
+        int i = 0;
+        while (current.parent != null && i < 100)
         {
+            i++;
             path = current.parent.gameObject.name + "/" + path;
-            current = go.parent;
+            current = current.parent;
         }
         return path;
     }

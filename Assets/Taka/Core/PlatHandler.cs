@@ -21,21 +21,22 @@ public class PlatHandler : MonoBehaviour
     protected List<IPlatComponent> _platComponentList = new List<IPlatComponent>();
     [SerializeField]
     private List<BtnHandler> btnList = new List<BtnHandler>();
+    private TakeManager _manager;
+    public TakeManager manager { get { return _manager; } }
     public Dictionary<int, BtnHandler> registedBtnList = new Dictionary<int, BtnHandler>();
     public event PlatEvent onInitialize;
     public event PlatEvent onShow;
     public event PlatEvent onHardShow;
-    public event PlatEvent onHide; 
+    public event PlatEvent onHide;
     public event PlatEvent onHardHide;
     public event PlatEvent onFreeze;
     public event PlatEvent onUnfreeze;
     public event AddBtn onBtnAdd;
-    public event BtnTrigger onBtnTrigger;
+    public event BtnTrigger onTriggerBtn;
 
     string _log = "";
 
     private bool _isFreeze;
-    [HideInInspector]
     public bool isFreeze
     {
         get
@@ -47,12 +48,11 @@ public class PlatHandler : MonoBehaviour
             if (value != _isFreeze)
             {
                 _isFreeze = value;
-                if (value)
+                if (_isFreeze)
                 {
                     if (onFreeze != null)
                     {
                         onFreeze();
-
                     }
                 }
                 else
@@ -66,13 +66,13 @@ public class PlatHandler : MonoBehaviour
             }
         }
     }
-
     bool _isShow;
     public bool isShow { get { return _isShow; } }
 
 
-    public virtual void Initialize()
+    public virtual void Initialize(TakeManager manager)
     {
+        _manager = manager;
         InitilizeBtnHandler();
         InitilzeComponent();
 
@@ -104,7 +104,7 @@ public class PlatHandler : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError(e);
-            _log += "InitilizeBtnHandler Error\n" + e + "\n\n";
+            _log += "\nInitilizeBtnHandler Error\n" + e + "\n\n";
             throw;
         }
     }
@@ -135,9 +135,15 @@ public class PlatHandler : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e.Message);
-            _log += "RemoveButton Error\n" + e + "\n\n";
+            _log += "\nRemoveButton Error\n" + e + "\n\n";
             throw;
         }
+    }
+
+    public List<BtnHandler> GetAllBtn()
+    {
+        _log += "\nGetAllBtn()\n\n";
+        return btnList.GetRange(0, btnList.Count);
     }
 
     public BtnHandler GetButton(int id)
@@ -145,14 +151,14 @@ public class PlatHandler : MonoBehaviour
         try
         {
             BtnHandler target = registedBtnList[id];
-            _log += "GetButton( id = " + ID + " )\n" + LogHelper.CallStack() + " \n\n";
+            _log += "\nGetButton( id = " + ID + " )\n" + LogHelper.CallStack() + " \n\n";
             return target;
 
         }
         catch (Exception e)
         {
-            Debug.Log("按鈕遺失或未註冊 id = " + id);
-            _log += "GetButton( id = " + ID + " ) Error\n" + e + " \n\n";
+            Debug.Log("有人好像跟我拿了一個不存在的按鈕，你說我該怎麼辦？\n btn ID = " + id);
+            _log += "\nGetButton( id = " + ID + " ) Error\n" + e + " \n\n";
             throw;
         }
     }
@@ -222,8 +228,17 @@ public class PlatHandler : MonoBehaviour
 
     public void TriggerBtn(int id)
     {
-        onBtnTrigger(id);
-        _log += "\nTriggerBtn( id = " + id + ")\n" + LogHelper.CallStack() + "\n\n";
+        var btn = btnList.Find((x) => x.ID == id);
+        if (!isFreeze && btn != null && !btn.isFreeze)
+        {
+            onTriggerBtn(id);
+            _log += "\nTriggerBtn( id = " + id + ")\n" + LogHelper.CallStack() + "\n\n";
+        }
+        else
+        {
+            _log += string.Format("有人想要觸發按鈕{0},然而並沒有任何卵用。\n isfreeze = {1}\nbtn = {2}\n{3}\n\n",
+                id, isFreeze, btn == null ? btn.ToString() : btn.transform.GetPath(), LogHelper.CallStack());
+        }
     }
 
     [ContextMenu("Trace Log")]
